@@ -1,65 +1,80 @@
-import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
+const STEPS = [
+  {
+    title: "An address, just for today",
+    body: "Your browser generates a fresh Sui Ed25519 keypair locally. The private key never leaves this device. You pick a name to display in the gallery.",
+  },
+  {
+    title: "Funded by the host",
+    body: "My sponsor wallet drips ~0.20 SUI to your new address so you can pay gas. One tap, one real on-chain transaction.",
+  },
+  {
+    title: "Five questions",
+    body: "Quick multiple-choice on today's Tamarin model. Your answers are signed locally and submitted on-chain as a single Move call one submission per address, enforced by the VM.",
+  },
+  {
+    title: "Watch finality happen",
+    body: "Sign → Submit → Consensus → Commit → Execute → Finality → Checkpoint plays out against real Sui Testnet RPC, with the actual digest and checkpoint number.",
+  },
+  {
+    title: "5/5 = claim a Cut Creature",
+    body: "Perfect score? Tap Claim and the host wallet mints you a Cut Creature NFT. Every minted NFT lives in the gallery for the rest of the day.",
+  },
+];
+
+export default function WelcomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="mx-auto flex w-full max-w-2xl flex-col gap-10 px-5 py-10">
+      <header className="flex flex-col gap-3">
+        <span className="self-start rounded-full border border-border bg-card px-3 py-1 text-xs uppercase tracking-widest text-muted-foreground">
+          Sui · Tamarin · Interactive
+        </span>
+        <h1 className="text-3xl font-medium leading-tight sm:text-4xl">
+          Send a real Sui transaction.
+          <br />
+          Watch finality happen, end to end.
+        </h1>
+        <p className="text-muted-foreground">
+          A 90-second interactive built around todey&apos;s formal-verification
+          talk. Everything you&apos;re about to do is on real Sui Testnet; no
+          accounts, no wallet install.
+        </p>
+      </header>
+
+      <ol className="space-y-3">
+        {STEPS.map((s, i) => (
+          <li
+            key={i}
+            className="flex items-start gap-3 rounded-xl border border-border bg-card p-4"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-primary text-xs font-mono text-primary-foreground">
+              {i + 1}
+            </span>
+            <div className="min-w-0">
+              <h2 className="font-medium text-card-foreground">{s.title}</h2>
+              <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                {s.body}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <div className="flex flex-col items-center gap-3">
+        <Link
+          href="/start"
+          className="w-full rounded-lg bg-primary px-4 py-3 text-center text-sm font-medium text-primary-foreground transition hover:opacity-90 sm:w-auto sm:px-8"
+        >
+          Begin →
+        </Link>
+        <Link
+          href="/gallery"
+          className="text-xs text-muted-foreground underline decoration-dotted hover:text-accent"
+        >
+          or peek at the gallery first
+        </Link>
+      </div>
+    </main>
   );
 }

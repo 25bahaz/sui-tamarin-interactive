@@ -1,0 +1,8 @@
+[package]
+name = "quiz_nft"
+edition = "2024.beta"
+
+[dependencies]
+
+[addresses]
+quiz_nft = "0x0"
