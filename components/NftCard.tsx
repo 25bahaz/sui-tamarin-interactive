@@ -1,5 +1,5 @@
 import { explorerAddressUrl, explorerObjectUrl, shortAddr } from "@/lib/sui";
-import type { GalleryItem } from "@/app/api/gallery/route";
+import type { GalleryItem } from "@/lib/gallery";
 
 export function NftCard({ item }: { item: GalleryItem }) {
   return (

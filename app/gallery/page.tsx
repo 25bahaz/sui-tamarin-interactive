@@ -1,27 +1,23 @@
 import Link from "next/link";
 import { NftCard } from "@/components/NftCard";
-import type { GalleryItem } from "@/app/api/gallery/route";
+import { fetchGalleryItems, type GalleryItem } from "@/lib/gallery";
 
 export const dynamic = "force-dynamic";
 
-async function fetchGallery(): Promise<{
+async function loadGallery(): Promise<{
   items: GalleryItem[];
   error?: string;
 }> {
-  const base =
-    process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const res = await fetch(`${base.replace(/\/$/, "")}/api/gallery`, {
-    cache: "no-store",
-  });
-  if (!res.ok) {
-    const body = (await res.json().catch(() => ({}))) as { error?: string };
-    return { items: [], error: body.error ?? `HTTP ${res.status}` };
+  try {
+    const items = await fetchGalleryItems();
+    return { items };
+  } catch (e) {
+    return { items: [], error: (e as Error).message ?? "Gallery fetch failed" };
   }
-  return (await res.json()) as { items: GalleryItem[] };
 }
 
 export default async function GalleryPage() {
-  const { items, error } = await fetchGallery();
+  const { items, error } = await loadGallery();
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-5 py-8">
@@ -41,7 +37,7 @@ export default async function GalleryPage() {
       </header>
 
       {error && (
-        <div className="rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-xs">
+        <div className="overflow-hidden break-all rounded-lg border border-destructive/40 bg-destructive/10 p-3 text-xs">
           {error}
         </div>
       )}
@@ -52,7 +48,6 @@ export default async function GalleryPage() {
         </div>
       ) : (
         <ul className="flex flex-wrap justify-center gap-3 sm:justify-start">
-          {/* width math: at mobile 2 cards per row (half minus half the gap) */}
           {items.map((item) => (
             <li
               key={item.nftId}
