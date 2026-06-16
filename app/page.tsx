@@ -3,7 +3,7 @@ import Link from "next/link";
 const STEPS = [
   {
     title: "An address, just for today",
-    body: "Your browser generates a fresh Sui Ed25519 keypair locally. The private key never leaves this device. You pick a name to display in the gallery.",
+    body: "Your browser generates a new fresh Sui Ed25519 keypair locally. The private key never leaves this device. You pick a name to display in the gallery.",
   },
   {
     title: "Funded by the host",
