@@ -36,7 +36,7 @@ export default function WelcomePage() {
           Watch finality happen, end to end.
         </h1>
         <p className="text-muted-foreground">
-          A 90-second interactive built around todey&apos;s formal-verification
+          A 90-second interactive built around today&apos;s formal-verification
           talk. Everything you&apos;re about to do is on real Sui Testnet; no
           accounts, no wallet install.
         </p>

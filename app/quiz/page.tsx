@@ -380,13 +380,14 @@ export default function QuizPage() {
                     )}
                   </div>
                 )}
-
+                {phase === 'claimed' || phase === 'resulted' ? 
                 <Link
                   href="/gallery"
                   className="mt-4 inline-block w-full rounded-lg border border-border bg-background px-3 py-2 text-center text-xs font-medium transition hover:border-accent"
                 >
                   See the gallery →
-                </Link>
+                </Link> : <></>
+                }
               </div>
             )}
 
